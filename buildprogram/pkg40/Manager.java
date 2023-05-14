@@ -4,6 +4,7 @@
  */
 package buildprogram.pkg40;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -15,14 +16,16 @@ public class Manager {
     public static Scanner scanner = new Scanner(System.in);
     private List<Student> studentList;
     private StudentList studentDao;
+    private List<Class> classList;
      
     /**
-     * init StudentDao object and
-     * read list student when init StudentManager object
+     * Khởi tạo đối tượng StudentDao
+     * Đọc danh sách sinh viên khi khởi tạo đối tượng StudentManager
      */   
     public Manager() {
         studentDao = new StudentList();
         studentList = studentDao.read();
+        classList = new ArrayList<Class>();
     }
  
     public void add() {
@@ -38,9 +41,7 @@ public class Manager {
     }
  
     /**
-     * edit student by id
-     * 
-     * @param id
+     * Chỉnh sửa sinh viên theo ID
      */
     public void edit(int id) {
         boolean isExisted = false;
@@ -63,9 +64,8 @@ public class Manager {
     }
  
     /**
-     * delete student by id
-     * 
-     * @param id: student id
+     * Xóa sinh viên theo ID
+
      */
     public void delete(int id) {
         Student student = null;
@@ -85,21 +85,21 @@ public class Manager {
     }
  
     /**
-     * sort student by name
+     * Sắp xếp sinh viên theo tên
      */
     public void sapXepTenSV() {
         Collections.sort(studentList, new SapXepTenSV());
     }
  
     /**
-     * sort student by id
+     * Sắp xếp điểm TB
      */
     public void diemTrungBinhSV() {
         Collections.sort(studentList, new DiemTrungBinhSV());
     }
  
     /**
-     * show list student to screen
+     * Show danh sách sinh viên 
      */
     public void Show() {
         for (Student student : studentList) {
@@ -112,9 +112,7 @@ public class Manager {
     }
  
     /**
-     * input student id
-     * 
-     * @return student id
+     * Nhập vào sinh viên ID
      */
     public int inputId() {
         System.out.print("Nhap id sinh vien : ");
@@ -129,9 +127,8 @@ public class Manager {
     }
      
     /**
-     * input student name
-     * 
-     * @return student name
+     * Nhập vào tên
+
      */
     private String inputName() {
         System.out.print("Nhap ten sinh vien : ");
@@ -139,9 +136,8 @@ public class Manager {
     }
  
     /**
-     * input student address
-     * 
-     * @return student address
+     * Nhập vào địa chỉ
+
      */
     private String inputAddress() {
         System.out.print("Nhap dia chi : ");
@@ -149,9 +145,7 @@ public class Manager {
     }
  
     /**
-     * input student age
-     * 
-     * @return student age
+     * Nhập tuổi
      */
     private byte inputAge() {
         System.out.print("Nhap so tuoi : ");
@@ -193,5 +187,139 @@ public class Manager {
         this.studentList = studentList;
     }
 
+     public void addClass() {
+        String name = inputClassName();
+        Teacher teacher = inputTeacher();
+        Class newClass = new Class(name, new ArrayList<>(), teacher, 0);
+        classList.add(newClass);
+    }
+
+    public void editClass(String name) {
+        boolean isExisted = false;
+        for (Class c : classList) {
+            if (c.getName().equals(name)) {
+                isExisted = true;
+                String newName = inputClassName();
+                Teacher newTeacher = inputTeacher();
+                c.setName(newName);
+                c.setTeacher(newTeacher);
+                break;
+            }
+        }
+        if (!isExisted) {
+            System.out.printf("Lop %s khong ton tai.\n", name);
+        }
+    }
+
+    public void deleteClass(String name) {
+        Class classToDelete = null;
+        for (Class c : classList) {
+            if (c.getName().equals(name)) {
+                classToDelete = c;
+                break;
+            }
+        }
+        if (classToDelete != null) {
+            classList.remove(classToDelete);
+        } else {
+            System.out.printf("Lop %s khong ton tai.\n", name);
+        }
+    }
+
+    public void showClassList() {
+        for (Class c : classList) {
+            System.out.format("%s | ", c.getName());
+            System.out.format("%s | ", c.getTeacher().getName());
+            System.out.format("%d | ", c.getNumberOfStudents());
+            System.out.println();
+        }
+    }
+
+    public String inputClassName() {
+        System.out.print("Nhap ten lop : ");
+        return scanner.nextLine();
+    }
+
+    public Teacher inputTeacher() {
+        System.out.print("Nhap ten giao vien : ");
+        String name = scanner.nextLine();
+        byte age = inputAge();
+        System.out.print("Nhap dia chi : ");
+        String address = scanner.nextLine();
+        System.out.println("Nhap sub");
+        String subject = scanner.nextLine();
+        return new Teacher(name, age, address,subject);
+    }
+    
+//    public void addStudentToClassById(String studentId, String classId) {
+//  // Lấy thông tin student và class từ database hoặc bất kỳ nguồn dữ liệu nào khác
+//        Student student = ge(studentId);
+//        Class myClass = getClassById(classId);
+//
+//        // Thêm student vào class
+//        myClass.addStudent(student);
+//      }
+      //    public void addClass() {
+//        String name = inputClassName();
+//        Teacher teacher = inputTeacher();
+//        Class newClass = new Class(name, new ArrayList<>(), teacher, 0);
+//        classList.add(newClass);
+//    }
+//
+//    public void editClass(String name) {
+//        boolean isExisted = false;
+//        for (Class c : classList) {
+//            if (c.getName().equals(name)) {
+//                isExisted = true;
+//                String newName = inputClassName();
+//                Teacher newTeacher = inputTeacher();
+//                c.setName(newName);
+//                c.setTeacher(newTeacher);
+//                break;
+//            }
+//        }
+//        if (!isExisted) {
+//            System.out.printf("Lop %s khong ton tai.\n", name);
+//        }
+//    }
+//
+//    public void deleteClass(String name) {
+//        Class classToDelete = null;
+//        for (Class c : classList) {
+//            if (c.getName().equals(name)) {
+//                classToDelete = c;
+//                break;
+//            }
+//        }
+//        if (classToDelete != null) {
+//            classList.remove(classToDelete);
+//        } else {
+//            System.out.printf("Lop %s khong ton tai.\n", name);
+//        }
+//    }
+//
+//    public void showClassList() {
+//        for (Class c : classList) {
+//            System.out.format("%s | ", c.getName());
+//            System.out.format("%s | ", c.getTeacher().getName());
+//            System.out.format("%d | ", c.getNumberOfStudents());
+//            System.out.println();
+//        }
+//    }
+//
+//    private String inputClassName() {
+//        System.out.print("Nhap ten lop : ");
+//        return scanner.nextLine();
+//    }
+//
+//    private Teacher inputTeacher() {
+//        System.out.print("Nhap ten giao vien : ");
+//        String name = scanner.nextLine();
+//        System.out.print("Nhap tuoi : ");
+//        byte age = inputAge();
+//        System.out.print("Nhap dia chi : ");
+//        String address = scanner.nextLine();
+//        return new Teacher(name, age, address);
+//    }
   
 }
