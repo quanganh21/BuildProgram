@@ -4,6 +4,7 @@
  */
 package buildprogram.pkg40;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -13,6 +14,10 @@ import java.util.Scanner;
 public class Application {
 
     public static Scanner scanner = new Scanner(System.in);
+    private List<Student> studentList;
+    private StudentList studentDao;
+    
+       
 
     public static void showMenu() {
         System.out.println("============== MENU ==============");
@@ -27,6 +32,7 @@ public class Application {
         System.out.println("8. Sua lop hoc");
         System.out.println("9. Xoa lop hoc");
         System.out.println("10. Hien thi danh sach lop hoc");
+        System.out.println("11. Them tu dong Sinh Vien.");
         System.out.println("0. exit.");
         System.out.println("---------------------------");
         System.out.print("Chon : ");
@@ -83,7 +89,7 @@ public class Application {
 //                    studentManager.addStudentToClass(studentId, className);
 //                }
 //                    
-                
+                case "11" ->    studentManager.themtudong();
                 case "0" -> {
                     System.out.println("Thoat.");
                     exit = true;

@@ -11,16 +11,16 @@ import java.io.Serializable;
 public class Student implements Serializable {
     private int id;
     private String name;
-    private byte age;
+    private int age;
     private String address;
     private float diemTB;
  
     public Student() {
+        
     }
  
-    public Student(int id, String name, byte age, 
+    public Student(int id, String name, int age, 
             String address, float diemTB) {
-        super();
         this.id = id;
         this.name = name;
         this.age = age;
@@ -44,11 +44,11 @@ public class Student implements Serializable {
         this.name = name;
     }
  
-    public byte getAge() {
+    public int getAge() {
         return age;
     }
  
-    public void setAge(byte age) {
+    public void setAge(int age) {
         this.age = age;
     }
  

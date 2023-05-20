@@ -16,8 +16,10 @@ public class Manager {
     public static Scanner scanner = new Scanner(System.in);
     private List<Student> studentList;
     private StudentList studentDao;
+    private Student studentId;
     private List<Class> classList;
-     
+    
+    
     /**
      * Khởi tạo đối tượng StudentDao
      * Đọc danh sách sinh viên khi khởi tạo đối tượng StudentManager
@@ -27,7 +29,16 @@ public class Manager {
         studentList = studentDao.read();
         classList = new ArrayList<Class>();
     }
- 
+    public void themtudong(){
+        int id = (studentList.size() > 0) ? (studentList.size() + 1) : 1;
+        Student st1 = new Student(id, "tien", 12, "Dinh Tien", 2.5f);
+        Student st2 = new Student(id + 1, "tien4", 12, "Dinh Tien3", 5.5f);
+        Student st3 = new Student(id + 2, "tien2", 12, "Dinh Tien5",8.5f);
+        studentList.add(st1);
+        studentList.add(st2);
+        studentList.add(st3);
+        studentDao.write(studentList);
+    }
     public void add() {
         int id = (studentList.size() > 0) ? (studentList.size() + 1) : 1;
         System.out.println("student id = " + id);
@@ -230,6 +241,9 @@ public class Manager {
         for (Class c : classList) {
             System.out.format("%s | ", c.getName());
             System.out.format("%s | ", c.getTeacher().getName());
+            System.out.format("%s | ", c.getTeacher().getAddress());
+            System.out.format("%s | ", c.getTeacher().getAge());
+            System.out.format("%s | ", c.getTeacher().getSubject());
             System.out.format("%d | ", c.getNumberOfStudents());
             System.out.println();
         }
@@ -243,9 +257,11 @@ public class Manager {
     public Teacher inputTeacher() {
         System.out.print("Nhap ten giao vien : ");
         String name = scanner.nextLine();
-        byte age = inputAge();
+        System.out.print("Nhap tuoi : ");
+        int age = scanner.nextInt();
         System.out.print("Nhap dia chi : ");
         String address = scanner.nextLine();
+        scanner.nextLine();
         System.out.println("Nhap sub");
         String subject = scanner.nextLine();
         return new Teacher(name, age, address,subject);

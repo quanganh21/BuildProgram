@@ -10,11 +10,11 @@ package buildprogram.pkg40;
  */
 public class Teacher {
     private String name;
-    private byte age;
+    private int age;
     private String address;
     private String subject;
 
-    public Teacher(String name, byte age, String address, String subject) {
+    public Teacher(String name, int age, String address, String subject) {
         this.name = name;
         this.age = age;
         this.address = address;
@@ -29,11 +29,11 @@ public class Teacher {
         this.name = name;
     }
 
-    public byte getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(byte age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
